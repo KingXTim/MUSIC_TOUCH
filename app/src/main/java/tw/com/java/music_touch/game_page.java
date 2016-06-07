@@ -24,7 +24,7 @@ import java.util.Timer;
 
 public class game_page extends AppCompatActivity implements View.OnClickListener,View.OnTouchListener {
     MediaPlayer mPlayer;
-    TextView score, end,  cmb, maxcb;
+    TextView score, end,  cmb, maxcombo;
     Button btnA, btnB, btnC, btnD;
     Button showA0, showA1, showB0, showB1, showC0, showC1, showD0, showD1;
     Button back;
@@ -40,8 +40,7 @@ public class game_page extends AppCompatActivity implements View.OnClickListener
     public int t = 0;
     int count = 0;
     int endTime = 100;
-    int combo = 0;
-    int maxcombo=0;
+    int combo = 0, mcb=0;
 
     int[] A = {0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0, 0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	1,	1,	0,	1,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	1,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	1,	0,	0,	0,	0,	0,	0,	1,	0,	1,	0,	0,	0,	0,	1,	0,	0,	0,	1,	0,	0,	0,	1,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	1,	0,	0,	1,	0,	0,	0,	0,	0,	1,	0,	1,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	1,	1,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	1,	1,	0,	0,	1,	0,	0,	0,	1,	0,	0,	0,	1,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	1,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,
     };
@@ -69,7 +68,7 @@ public class game_page extends AppCompatActivity implements View.OnClickListener
         score = (TextView) findViewById(R.id.scoreboard);
         end = (TextView) findViewById(R.id.enddd);
         cmb = (TextView)findViewById(R.id.combo);
-        maxcb = (TextView)findViewById(R.id.maxcombo);
+        maxcombo = (TextView)findViewById(R.id.maxcombo);
         btnA = (Button) findViewById(R.id.buttonA);
         btnB = (Button) findViewById(R.id.buttonB);
         btnC = (Button) findViewById(R.id.buttonC);
@@ -291,8 +290,8 @@ public class game_page extends AppCompatActivity implements View.OnClickListener
             else if (t == 401) {
                 mPlayer.stop();
                 mPlayer.release();
+                cmb.setText(String.valueOf(mcb));
                 layOut.setBackgroundColor(0xFF808080);
-                combo = maxcombo;
                 btnA.setVisibility(View.INVISIBLE);
                 btnB.setVisibility(View.INVISIBLE);
                 btnC.setVisibility(View.INVISIBLE);
@@ -308,7 +307,8 @@ public class game_page extends AppCompatActivity implements View.OnClickListener
                 back.setVisibility(View.VISIBLE);
                 score.setVisibility(View.INVISIBLE);
                 end.setVisibility(View.VISIBLE);
-                maxcb.setVisibility(View.VISIBLE);
+                cmb.setVisibility(View.VISIBLE);
+                maxcombo.setVisibility(View.VISIBLE);
                 girl1.setAlpha(80);
                 girl2.setAlpha(80);
                 girl3.setAlpha(80);
@@ -342,6 +342,7 @@ public class game_page extends AppCompatActivity implements View.OnClickListener
         if (v.getId() == R.id.buttonD) {
             btnD.setVisibility(View.INVISIBLE);
         }
+        if (combo>mcb) mcb = combo;
     }
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -413,7 +414,7 @@ public class game_page extends AppCompatActivity implements View.OnClickListener
             girl1.setVisibility(View.VISIBLE);
             girl3.setVisibility(View.INVISIBLE);
         }
-        if (combo>maxcombo) maxcombo = combo;
+
         return false;
     }
 
