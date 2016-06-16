@@ -47,6 +47,28 @@ public class main_page extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume()
+    {
+        // TODO Auto-generated method stub
+        super.onResume();
+        mPlayer.start();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        // TODO Auto-generated method stub
+        super.onPause();
+        mPlayer.pause();
+    }
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        mPlayer.start();
+    }
+
     class SQLiteDB extends SQLiteOpenHelper {
 
         final String tablename = "music";
@@ -104,8 +126,6 @@ public class main_page extends AppCompatActivity {
             im.setAlpha(1);
         } else {
             // 第二次单击buttont改变触发的事件
-            mPlayer.stop();
-            mPlayer.release();
             flag = 0;
             Intent intent = new Intent();
             intent.setClass(main_page.this, game_page.class);
@@ -158,4 +178,5 @@ public class main_page extends AppCompatActivity {
         }
         return false;
     }
+
 }
